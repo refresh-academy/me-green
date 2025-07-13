@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 const Usuario = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 p-6">
+    <div className="flex flex-col items-center justify-center gap-4 pt-24">
       <h2 className="text-3xl font-bold text-green-700">Dicci qualcosa di te</h2>
       <p className="w-96">
         Abbiamo pensato di chiederti come vuoi essere chiamato per personalizzare il tuo sondaggio e il 
@@ -12,7 +12,7 @@ const Usuario = () => {
         <input
           type="text"
           placeholder="Nome"
-          className="w-96 my-6 p-3 rounded border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="w-112 my-6 p-3 text-center rounded border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
         />
         {/* <input
           type="email"
