@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router";
 
 const Layout = () => {
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-sky-300 to-green-100 flex flex-col items-center justify-center text-center font-sans text-gray-800">
+    <div className="min-h-screen w-screen overflow-hidden bg-gradient-to-b from-sky-300 to-green-100 flex flex-col items-center justify-center text-center font-sans text-gray-800">
      
       {/* Link "Chi siamo?" */}
       <Link className="absolute left-12 top-10" to="/usuario">

@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router";
 import Home from "./routes/Home.jsx";
 import NotFound from "./routes/NotFound.jsx";
 import Sezioni from "./routes/Sezioni.jsx";

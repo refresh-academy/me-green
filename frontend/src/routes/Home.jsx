@@ -3,10 +3,11 @@ import Usuario from "./Usuario.jsx";
 const Home = () => {
   return (
     <>
-      <h1 className="text-4xl md:text-6xl font-bold text-gray-600 mb-4">
-        Quanto sei{" "}
-        <span className="text-green-600 text-5xl md:text-7xl">green?</span>
-      </h1>
+    <div className="flex">
+      <h1 className="text-4xl md:text-6xl font-bold text-gray-600 mb-4 mr-5">
+        Quanto sei</h1>
+        <h1 className="text-green-600 font-bold text-5xl md:text-6xl mb-2">green?</h1>
+      </div>
       <p className="mb-1">Scopri il tuo impatto ambientale in pochi minuti</p>
 
       <img
