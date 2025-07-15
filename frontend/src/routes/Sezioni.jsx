@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from "react-router";
+import { useState } from 'react';
 
 const Checkbox = ({ label, value, onChange }) => {
   return (
@@ -11,10 +12,35 @@ const Checkbox = ({ label, value, onChange }) => {
 };
 
 const Sezioni = () => {
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = () => {
-    setChecked(!checked);
+  const [checkedCasa, setCheckedCasa] = React.useState(false);
+  const [checkedTrasporti, setCheckedTrasporti] = React.useState(false);
+  const [checkedViaggi, setCheckedViaggi] = React.useState(false);
+  const [checkedAlimentazione, setCheckedAlimentazione] = React.useState(false);
+  const [checkedConsumi, setCheckedConsumi] = React.useState(false);
+  const [checkedTutti, setCheckedTutti] = React.useState(false);
+  
+  const handleChangeCasa = () => {
+    setCheckedCasa(!checkedCasa);
+  };
+  const handleChangeTrasporti = () => {
+    setCheckedTrasporti(!checkedTrasporti);
+  };
+  const handleChangeViaggi = () => {
+    setCheckedViaggi(!checkedViaggi);
+  };
+  const handleChangeAlimentazione = () => {
+    setCheckedAlimentazione(!checkedAlimentazione);
+  };
+  const handleChangeConsumi = () => {
+    setCheckedConsumi(!checkedConsumi);
+  };
+  const handleChangeTutti = () => {
+    setCheckedTutti(!checkedTutti);
+    setCheckedCasa(!checkedTutti);
+    setCheckedTrasporti(!checkedTutti);
+    setCheckedViaggi(!checkedTutti);
+    setCheckedAlimentazione(!checkedTutti);
+    setCheckedConsumi(!checkedTutti);
   };
   return (
     <>
@@ -22,33 +48,46 @@ const Sezioni = () => {
       <div className=" flex-col">
         <div className=" flex">
           <Checkbox
+          className="controllo"
+            label="Tutti"
+            value={checkedTutti}
+            onChange={handleChangeTutti} />
+        </div>
+        <div className=" flex">
+          <Checkbox
+          className="controllo"
             label="Casa"
-            value={checked}
-            onChange={handleChange} />
+            name="Casa"
+            value={checkedCasa}
+            onChange={handleChangeCasa} />
         </div>
         <div className=" flex">
           <Checkbox
+          className="controllo"
             label="Trasporti"
-            value={checked}
-            onChange={handleChange} />
+            value={checkedTrasporti}
+            onChange={handleChangeTrasporti} />
         </div>
         <div className=" flex">
           <Checkbox
+          className="controllo"
             label="Viaggi"
-            value={checked}
-            onChange={handleChange} />
+            value={checkedViaggi}
+            onChange={handleChangeViaggi} />
         </div>
         <div className=" flex">
           <Checkbox
-            label="Alimentazioni"
-            value={checked}
-            onChange={handleChange} />
+          className="controllo"
+            label="Alimentazione"
+            value={checkedAlimentazione}
+            onChange={handleChangeAlimentazione} />
         </div>
         <div className=" flex">
           <Checkbox
-            label="Consumi/"
-            value={checked}
-            onChange={handleChange} />
+          className="controllo"
+            label="Consumi"
+            value={checkedConsumi}
+            onChange={handleChangeConsumi} />
         </div>
       </div>
       <Link
