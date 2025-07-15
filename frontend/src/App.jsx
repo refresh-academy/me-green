@@ -6,6 +6,7 @@ import Sezioni from "./routes/Sezioni.jsx";
 import Domanda from "./routes/Domanda.jsx";
 import Layout from "./routes/Layout.jsx";
 import Usuario from "./routes/Usuario.jsx";
+import Chisiamo from "./routes/Chisiamo.jsx";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="chisiamo" element={<Chisiamo />} />
+          {/* The 'Usuario' component is used for both 'Chisiamo' and 'Usuario' routes */}
           <Route path="usuario" element={<Usuario />} />
           <Route path="sezioni" element={<Sezioni />} />
           <Route path="domande" element={<Domanda />} />
