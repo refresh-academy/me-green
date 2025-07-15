@@ -26,7 +26,7 @@ const Usuario = () => {
         /> */}
 
           <p className="mb-8">
-            Conserveremo i tuoi risultati, per le nostre statistiche e per mostrare il tuo profilo green se 
+            Conserveremo i tuoi risultati, per le nostre statistiche e per mostrare il tuo profilo green. 
           </p>
         <Link
           to="/sezioni"
