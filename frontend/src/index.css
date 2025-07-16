@@ -28,3 +28,10 @@ body,
   z-index: 45;
 }
 
+@theme {
+  --titolo-verde: #6DBE45;
+  --sfondo-azzurro: #9BE8E1;
+  --elementi-decorativi-giallo: #F8E9A1;
+  --sfondi-box-beige: #FAF6F0;
+  --bottoni-scuri-verdebosco: #2A6B3C;
+}
