@@ -42,10 +42,11 @@ const AvatarDisplay = ({iconAvatar, utente}) => {
   );
 
  return (
-  <div className="flex flex-col items-center justify-center
-                  absolute right-12 top-10">
+  <div className="flex flex-row-reverse gap-4 items-center justify-center
+                  absolute right-12 top-10 pl-5
+                  bg-white/25 bg-opacity-90 rounded-full ">
   {avatarImage}
-  <p>{utente}</p>
+  <p className="text-xl">{utente}</p>
   </div>
   );  
 }
