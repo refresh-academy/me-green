@@ -1,5 +1,13 @@
 import { Link, Outlet } from "react-router";
-const AvatarDisplay = ({iconAvatar}) => {
+
+/* 
+
+  React component per mostrare un avatar a partire dal suo indice 
+  contenuto nello stato iconAvatar
+  
+*/
+
+const AvatarDisplay = ({iconAvatar, utente}) => {
   let avatarSrc = '';
   let avatarAlt = '';
   console.log('Avatar ID:', iconAvatar);
@@ -25,21 +33,27 @@ const AvatarDisplay = ({iconAvatar}) => {
     avatarAlt="Avatar eco"
   }
   
+  const avatarImage = avatarSrc !== '' && (
+    <img className="inline-block size-12 rounded-full ring-2 
+                  ring-white bg-green-200 "
+         src={avatarSrc}
+        alt={avatarAlt}
+    />
+  );
+
  return (
-  avatarSrc !== '' && (
-  <img className="inline-block size-12 rounded-full ring-2 
-                ring-white bg-green-200 absolute right-12 top-10"
-       src={avatarSrc}
-       alt={avatarAlt}
-       />
-  )
+  <div className="flex flex-col items-center justify-center
+                  absolute right-12 top-10">
+  {avatarImage}
+  <p>{utente}</p>
+  </div>
   );  
 }
 
 
 
 
-const Layout = ({iconAvatar}) => {
+const Layout = ({iconAvatar, utente}) => {
 
 
   return (
@@ -49,8 +63,8 @@ const Layout = ({iconAvatar}) => {
       <Link className="absolute left-12 top-10" to="/Chisiamo">
         Chi siamo?
       </Link>
-      <AvatarDisplay iconAvatar={iconAvatar} className="absolute right-12 top-10" />
-
+      <AvatarDisplay iconAvatar={iconAvatar} utente={utente} className="absolute right-12 top-10" />
+      
       {/* Outlet per mostrare le pagine */}
       <Outlet />
 
