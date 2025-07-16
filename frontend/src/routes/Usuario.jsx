@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const Usuario = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -30,6 +32,12 @@ const Usuario = () => {
             <div className="w-12 h-12 bg-green-500 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
             <div className="w-12 h-12 bg-green-600 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
           </div>
+          <Link
+          to="/sezioni"
+          className="bg-green-600 text-white px-6 py-3 rounded-full shadow hover:bg-green-700 text-center"
+        >
+          Continua
+        </Link>
         </form>
       </div>
     </div>
