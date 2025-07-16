@@ -12,7 +12,7 @@ import { useState } from "react";
 function App() {
 
   const [avatar, setAvatar] = useState(0);
-  const [utente, setUtente] = useState("nessuno");
+  const [utente, setUtente] = useState("");
   
     return (
     <BrowserRouter>
