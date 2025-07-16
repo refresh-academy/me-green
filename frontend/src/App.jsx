@@ -7,16 +7,18 @@ import Domanda from "./routes/Domanda.jsx";
 import Layout from "./routes/Layout.jsx";
 import Usuario from "./routes/Usuario.jsx";
 import Chisiamo from "./routes/Chisiamo.jsx";
+import { useState } from "react";
 
 function App() {
+    const [avatar, setAvatar] = useState(0);
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+        <Route element={<Layout iconAvatar={avatar} />}>
+          <Route path="/" element={<Home changeAvatar={setAvatar}/>} />
           <Route path="chisiamo" element={<Chisiamo />} />
           {/* The 'Usuario' component is used for both 'Chisiamo' and 'Usuario' routes */}
-          <Route path="usuario" element={<Usuario />} />
+          <Route path="usuario" element={<Usuario changeAvatar={setAvatar} />} />
           <Route path="sezioni" element={<Sezioni />} />
           <Route path="domande" element={<Domanda />} />
           <Route path="*" element={<NotFound />} />

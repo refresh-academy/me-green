@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import Usuario from "./Usuario.jsx";
-const Home = () => {
+const Home = ({changeAvatar}) => {
+  changeAvatar(0) //cancelliamo l'avatar
   return (
     <>
     <div className="flex">

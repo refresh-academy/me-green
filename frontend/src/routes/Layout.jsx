@@ -1,6 +1,47 @@
 import { Link, Outlet } from "react-router";
+const AvatarDisplay = ({iconAvatar}) => {
+  let avatarSrc = '';
+  let avatarAlt = '';
+  console.log('Avatar ID:', iconAvatar);
 
-const Layout = () => {
+  if (iconAvatar == 1){
+    avatarSrc="avatar-senior.png";
+    avatarAlt="Avatar senior"
+  }
+  if (iconAvatar == 2){
+    avatarSrc="avatar-adulta.png";
+    avatarAlt="Avatar adulta"
+  }
+  if (iconAvatar == 3){
+    avatarSrc="avatar-giovane.png";
+    avatarAlt="Avatar giovane"
+  }
+  if (iconAvatar == 4){
+    avatarSrc="avatar-neutral.png";
+    avatarAlt="Avatar neutral"
+  }
+  if (iconAvatar == 5){
+    avatarSrc="avatar-eco.png";
+    avatarAlt="Avatar eco"
+  }
+  
+ return (
+  avatarSrc !== '' && (
+  <img className="inline-block size-12 rounded-full ring-2 
+                ring-white bg-green-200 absolute right-12 top-10"
+       src={avatarSrc}
+       alt={avatarAlt}
+       />
+  )
+  );  
+}
+
+
+
+
+const Layout = ({iconAvatar}) => {
+
+
   return (
     <div className="min-h-screen w-screen overflow-hidden bg-gradient-to-b from-sky-300 to-green-100 flex flex-col items-center justify-center text-center font-sans text-gray-800">
      
@@ -8,6 +49,7 @@ const Layout = () => {
       <Link className="absolute left-12 top-10" to="/Chisiamo">
         Chi siamo?
       </Link>
+      <AvatarDisplay iconAvatar={iconAvatar} className="absolute right-12 top-10" />
 
       {/* Outlet per mostrare le pagine */}
       <Outlet />

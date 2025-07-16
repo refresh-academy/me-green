@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 
-const Usuario = () => {
+const Usuario = ({changeAvatar}) => {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="bg-white bg-opacity-90 rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+      <div className="bg-white bg-opacity-90 rounded-xl shadow-lg p-8 max-w-md w-full text-center z-50">
         <h1 className="text-3xl md:text-4xl font-bold mb-2 text-green-800">
           Facciamo conoscenza!
         </h1>
@@ -25,20 +25,29 @@ const Usuario = () => {
           </p>
 
           <div className="flex justify-center gap-4 mt-4">
-            {/* Avatar finti */}
-            <div className="w-12 h-12 bg-green-200 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
-            <div className="w-12 h-12 bg-green-300 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
-            <div className="w-12 h-12 bg-green-400 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
-            <div className="w-12 h-12 bg-green-500 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
-            <div className="w-12 h-12 bg-green-600 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
+            <input type="radio" name="avatar" className="hidden" value={0} readOnly checked/>
+            {/* Avatar personalizzati */}
+            <label> <img className="inline-block size-12 rounded-full ring-2 ring-white bg-green-200 cursor-pointer" src="avatar-senior.png" alt="Avatar senior"/>
+            <input type="radio" name="avatar" className="hidden" value={1} onChange={(e)=>changeAvatar(e.target.value)} /></label>
+            <label><img className="inline-block size-12 rounded-full ring-2 ring-white bg-green-400 cursor-pointer" src="avatar-adulta.png" alt="Avatar adulta"/>
+           <input type="radio" name="avatar" className="hidden" value={2} onChange={(e)=>changeAvatar(e.target.value)}/></label>
+           <label> <img className="inline-block size-12 rounded-full ring-2 ring-white bg-green-600 cursor-pointer" src="avatar-giovane.png" alt="Avatar giovane"/>
+           <input type="radio" name="avatar" className="hidden" value={3} onChange={(e)=>changeAvatar(e.target.value)}/></label>
+           <label><img className="inline-block size-12 rounded-full ring-2 ring-white bg-green-800 cursor-pointer" src="avatar-neutral.png" alt="Avatar neutral"/>
+          <input type="radio" name="avatar" className="hidden" value={4} onChange={(e)=>changeAvatar(e.target.value)}/></label>
+          <label><img className="inline-block size-12 rounded-full ring-2 ring-white bg-green-900 cursor-pointer" src="avatar-eco.png" alt="Avatar eco"/>
+          <input type="radio" name="avatar" className="hidden" value={5} onChange={(e)=>changeAvatar(e.target.value)} /></label>
           </div>
-          <Link
+
+           <Link
           to="/sezioni"
-          className="bg-green-600 text-white px-6 py-3 rounded-full shadow hover:bg-green-700 text-center"
+          className="block mx-auto bg-green-600 text-white px-6 py-3 mt-10 rounded-full shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 transition duration-200 ease-in-out"
         >
           Continua
         </Link>
-        </form>
+</form>
+         
+      
       </div>
     </div>
   );
