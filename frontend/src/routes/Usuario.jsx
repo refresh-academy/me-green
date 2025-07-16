@@ -2,39 +2,44 @@ import { Link } from "react-router";
 
 const Usuario = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 pt-24">
-      <h2 className="text-3xl font-bold text-green-700">Dicci qualcosa di te</h2>
-      <p className="w-96">
-        Abbiamo pensato di chiederti come vuoi essere chiamato per personalizzare il tuo sondaggio e il 
-        report che riceverai alla fine del quiz.
-      </p>
-      <form className="flex flex-col gap-4 w-full max-w-md">
-        <input
-          type="text"
-          placeholder="Nome"
-          className="w-112 my-6 p-3 text-center rounded border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
-        {/* <input
-          type="email"
-          placeholder="Email"
-          className="p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
-        <input
-          type="text"
-          placeholder="Nome utente"
-          className="p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
-        /> */}
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="bg-white bg-opacity-90 rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2 text-green-800">
+          Facciamo conoscenza!
+        </h1>
+        <p className="text-gray-600 mb-6">
+          Dicci come vuoi essere chiamato e iniziamo il tuo percorso green.
+        </p>
 
-          <p className="mb-8">
-            Conserveremo i tuoi risultati, per le nostre statistiche e per mostrare il tuo profilo green. 
+        <form className="w-full max-w-sm space-y-4 mx-auto">
+          <input
+            type="text"
+            name="nome"
+            placeholder="Nome"
+            className="w-full border gray-300 rounded px-4 py-2"
+            required
+          />
+
+          <p className="text-gray-600 mb-6">
+            Scegli l’avatar che ti rappresenta di più!
           </p>
-        <Link
+
+          <div className="flex justify-center gap-4 mt-4">
+            {/* Avatar finti */}
+            <div className="w-12 h-12 bg-green-200 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
+            <div className="w-12 h-12 bg-green-300 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
+            <div className="w-12 h-12 bg-green-400 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
+            <div className="w-12 h-12 bg-green-500 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
+            <div className="w-12 h-12 bg-green-600 rounded-full cursor-pointer hover:ring-2 hover:ring-green-500"></div>
+          </div>
+          <Link
           to="/sezioni"
           className="bg-green-600 text-white px-6 py-3 rounded-full shadow hover:bg-green-700 text-center"
         >
           Continua
         </Link>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
