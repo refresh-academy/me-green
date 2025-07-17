@@ -10,15 +10,22 @@ import Chisiamo from "./routes/Chisiamo.jsx";
 import { useState } from "react";
 
 function App() {
-    const [avatar, setAvatar] = useState(0);
-  return (
+
+  const [avatar, setAvatar] = useState(0);
+  const [utente, setUtente] = useState("");
+  
+    return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout iconAvatar={avatar} />}>
+        <Route element={<Layout iconAvatar={avatar} utente={utente} />}>
           <Route path="/" element={<Home changeAvatar={setAvatar}/>} />
           <Route path="chisiamo" element={<Chisiamo />} />
           {/* The 'Usuario' component is used for both 'Chisiamo' and 'Usuario' routes */}
-          <Route path="usuario" element={<Usuario changeAvatar={setAvatar} />} />
+          <Route path="usuario" element={<Usuario 
+            changeAvatar={setAvatar}
+            utente={utente} 
+            changeUtente={setUtente}  
+          />} />
           <Route path="sezioni" element={<Sezioni />} />
           <Route path="domande" element={<Domanda />} />
           <Route path="*" element={<NotFound />} />
