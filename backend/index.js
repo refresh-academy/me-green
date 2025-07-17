@@ -47,6 +47,23 @@ const dbRun = (query, params = []) => {
     });
 };
 
+app.get("/api/questionario/:questionario_id/sezioni", async (req, res) => {
+    const SQL = `SELECT id_sezione, s.titolo, count() AS numero_domande
+    FROM sezione s
+    JOIN domanda ON (id_sezione = sezione_id)
+    WHERE questionario_id = ?
+    GROUP BY sezione_id
+    ORDER BY s.ordine`;
+    const sezioni =await dbAll(SQL, [req.params.questionario_id] );
+    if (sezioni.length===0){
+        return res.status(404).json({error: "questionario non trovato"});
+    }else{
+        res.json(sezioni);
+    }
+})
+
+
+
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
