@@ -20,10 +20,10 @@ INSERT INTO domanda (sezione_id, titolo, corpo, ordine, tipo) VALUES
 (1,"CASA","Che tipo di lampadine usi in casa?",7, "radio");
 
 
--- INSERT INTO domanda (sezione_id, titolo, corpo, ordine, tipo) VALUES
--- (2,"TRASPORTI","Come ti sposti abitualmente per andare al lavoro o a scuola?",1, "radio"),
--- (2,"TRASPORTI","Come accompagni i tuoi figli a scuola o gestisci i tragitti quotidiani dei tuoi familiari?",2, "radio"),
--- (2,"TRASPORTI","Come ti comporti quando devi fare commissioni brevi (entro 5 km)?",3, "radio");
+INSERT INTO domanda (sezione_id, titolo, corpo, ordine, tipo) VALUES
+(2,"TRASPORTI","Come ti sposti abitualmente per andare al lavoro o a scuola?",1, "radio"),
+(2,"TRASPORTI","Come accompagni i tuoi figli a scuola o gestisci i tragitti quotidiani dei tuoi familiari?",2, "radio"),
+(2,"TRASPORTI","Come ti comporti quando devi fare commissioni brevi (entro 5 km)?",3, "radio");
 
 
 -- INSERT INTO domanda (sezione_id, titolo, corpo, ordine, tipo) VALUES
@@ -42,7 +42,7 @@ INSERT INTO domanda (sezione_id, titolo, corpo, ordine, tipo) VALUES
 -- (4,"CONSUMI","Quanti vestiti nuovi acquisti al mese?",1, "slider"),
 -- (4,"CONSUMI","Con quale frequenza ricevi pacchi acquistati online?",2, "slider"),
 -- (4,"CONSUMI","Cosa fai con i vestiti o oggetti che non usi più?",3, "radio"),
--- (4,"CONSUMI","Come consumi l’acqua potabile a casa (per bere)?",4, "radio");
+-- (4,"CONSUMI","Come consumi l’acqua potabile a casa (per bere)?",4, "radio";
 
 INSERT INTO risposta (domanda_id, ordine, corpo, valore_punti, valore_CO2) VALUES
 (1,1,"come stai?",0,0);
