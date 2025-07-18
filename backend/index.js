@@ -60,10 +60,20 @@ app.get("/api/questionario/:questionario_id/sezioni", async (req, res) => {
     }else{
         res.json(sezioni);
     }
-})
+});
 
-
-
+app.get("/api/questionario/:questionario_id/sezione/:sezione_id/domande", async (req, res) => {
+    const SQL = `SELECT id_domanda, d.corpo, d.tipo
+    FROM domanda d
+    WHERE sezione_id = ?
+    ORDER BY d.ordine`;
+    const domande =await dbAll(SQL, [req.params.sezione_id] );
+    if (domande.length===0){
+        return res.status(404).json({error: "questionario non trovato"});
+    }else{
+        res.json(domande);
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
