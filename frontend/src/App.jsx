@@ -1,41 +1,38 @@
-//import greenLogo from '/green-logo.svg'
-import './App.css'
-import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router'
-import Home from './routes/Home.jsx'
-import NotFound from './routes/NotFound.jsx'
-import Risultato from './routes/Locali.jsx'
-import Domanda from './routes/Locale.jsx'
-
-const Layout = () => {
-  return (
-    <>
-      <div className='relative z-20 bg-white shadow-md'>
-        <Link to={"/"} className='flex flex-row items-center text-just-eat text-2xl font-bold gap-2 p-2'>
-          <img className="w-12 h-12" src={greenLogo} alt="Green logo" />
-          Me Green
-        </Link>
-      </div>
-      <div>
-        <Outlet />
-      </div>
-    </>
-  )
-}
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router";
+import Home from "./routes/Home.jsx";
+import NotFound from "./routes/NotFound.jsx";
+import Sezioni from "./routes/Sezioni.jsx";
+import Domanda from "./routes/Domanda.jsx";
+import Layout from "./routes/Layout.jsx";
+import Usuario from "./routes/Usuario.jsx";
+import Chisiamo from "./routes/Chisiamo.jsx";
+import { useState } from "react";
 
 function App() {
-  return (
+
+  const [avatar, setAvatar] = useState(0);
+  const [utente, setUtente] = useState("");
+  
+    return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="" element={<Home />} />
-          <Route path="risultato" element={<Risultato />} />
-          <Route path="check" element={<Check />} />
-          <Route path="domanda/:id" element={<Domanda />} />
+        <Route element={<Layout iconAvatar={avatar} utente={utente} />}>
+          <Route path="/" element={<Home changeAvatar={setAvatar}/>} />
+          <Route path="chisiamo" element={<Chisiamo />} />
+          {/* The 'Usuario' component is used for both 'Chisiamo' and 'Usuario' routes */}
+          <Route path="usuario" element={<Usuario 
+            changeAvatar={setAvatar}
+            utente={utente} 
+            changeUtente={setUtente}  
+          />} />
+          <Route path="sezioni" element={<Sezioni />} />
+          <Route path="domande" element={<Domanda />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

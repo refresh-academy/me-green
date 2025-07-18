@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Aggiungiamo le classi per gestire gli z-index intermedi che mancano in tailwindcss */
+
+.z-5 {
+  z-index: 5;
+}
+
+.z-15 {
+  z-index: 15;
+}
+
+.z-25 {
+  z-index: 25;
+}
+.z-35 {
+  z-index: 35;
+}
+.z-45 {
+  z-index: 45;
+}
+
+@theme {
+  --titolo-verde: #6DBE45;
+  --sfondo-azzurro: #9BE8E1;
+  --elementi-decorativi-giallo: #F8E9A1;
+  --sfondi-box-beige: #FAF6F0;
+  --bottoni-scuri-verdebosco: #2A6B3C;
+}
