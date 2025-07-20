@@ -1,7 +1,9 @@
 import { useState } from "react";
+import ButtonAltraDomanda from "../components/ButtonAltraDomanda";
 
 // Componente principale per la sezione "Consumi e Rifiuti"
-const ConsumiRifiuti = () => {
+const ConsumiRifiuti = ({ changeTheme }) => {
+  changeTheme("from-green-100 to-green-200");
   const [rispostaSelezionata, setRispostaSelezionata] = useState(""); // Stato per tenere traccia della risposta selezionata dall'utente
   const [domandaCorrente, setDomandaCorrente] = useState(0); // Stato per sapere a quale domanda siamo (serve quando aggiungeremo più domande)
   //  Elenco delle domande: per ora solo la prima, tipo radio button
@@ -54,7 +56,7 @@ const ConsumiRifiuti = () => {
   return (
     <>
       {/* Sfondo verde solo per questa pagina */}
-      <div className="fixed inset-0 -z-5 bg-gradient-to-b from-green-100 to-green-200" />
+      {/* <div className="fixed inset-0 -z-5 bg-gradient-to-b from-green-100 to-green-200" /> */}
 
       {/* Contenuto centrato */}
       <div className="min-h-screen flex-col flex items-center justify-center px-4">
@@ -96,13 +98,13 @@ const ConsumiRifiuti = () => {
           </p>
         )}
 
-        {/* Bottoni Avanti e Indietro*/}
+        {/* Bottoni Avanti e Indietro
         <div className="flex justify-between mt-8 w-40 mx-auto">
           <button
             onClick={vaiIndietro}
             disabled={domandaCorrente === 0}
             className={`w-12 h-12 flex items-center justify-center rounded-full border-2 text-xl font-bold
-        ${
+              ${
           domandaCorrente === 0
             ? "border-gray-300 text-gray-300 cursor-not-allowed"
             : "border-green-600 text-green-600 hover:bg-green-100 transition"
@@ -116,7 +118,7 @@ const ConsumiRifiuti = () => {
             onClick={vaiAvanti}
             disabled={domandaCorrente === domande.length - 1}
             className={`w-12 h-12 flex items-center justify-center rounded-full border-2 text-xl font-bold
-    ${
+              ${
       domandaCorrente === domande.length - 1
         ? "border-gray-300 text-gray-300 cursor-not-allowed"
         : "border-green-600 text-green-600 hover:bg-green-100 transition"
@@ -125,8 +127,10 @@ const ConsumiRifiuti = () => {
           >
             →
           </button>
-        </div>
+        </div> */}
       </div>
+      <ButtonAltraDomanda target="/consumi" verso="indietro" titolo="Sezione Consumi" />
+      <ButtonAltraDomanda target="/" verso="avanti" titolo="Sezione Consumi" />
     </>
   );
 };

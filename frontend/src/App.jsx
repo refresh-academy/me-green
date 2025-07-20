@@ -14,6 +14,7 @@ function App() {
 
   const [avatar, setAvatar] = useState(0);
   const [utente, setUtente] = useState("");
+  
   const [gradientSfondo, setGradientSfondo] = useState("from-sky-300 to-green-100");
   
     return (
@@ -30,7 +31,7 @@ function App() {
           />} />
           <Route path="sezioni" element={<Sezioni />} />
           <Route path="domande" element={<Domanda />} />
-          <Route path="consumi" element={<ConsumiRifiuti />} />
+          <Route path="consumi" element={<ConsumiRifiuti changeTheme={setGradientSfondo}/>} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
