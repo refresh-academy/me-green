@@ -1,13 +1,12 @@
 import { Link } from "react-router";
 import Usuario from "./Usuario.jsx";
-const Home = ({changeAvatar}) => {
-  changeAvatar(4) //cancelliamo l'avatar
+const Home = () => {
   return (
     <>
     <div className="flex">
       <h1 className="text-4xl md:text-6xl font-bold text-gray-600 mb-4 mr-5">
-        Consumi e Rifiuti</h1>
-        <h1 className="text-green-600 font-bold text-5xl md:text-6xl mb-2">green?</h1>
+        Quanto sei <span className="text-green-600 font-bold text-5xl md:text-6xl mb-2">green?</span>
+      </h1>
       </div>
       <p className="mb-1">Scopri il tuo impatto ambientale in pochi minuti</p>
 
