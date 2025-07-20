@@ -7,17 +7,19 @@ import Domanda from "./routes/Domanda.jsx";
 import Layout from "./routes/Layout.jsx";
 import Usuario from "./routes/Usuario.jsx";
 import Chisiamo from "./routes/Chisiamo.jsx";
+import ConsumiRifiuti from "./routes/ConsumiRifiuti.jsx";
 import { useState } from "react";
 
 function App() {
 
   const [avatar, setAvatar] = useState(0);
   const [utente, setUtente] = useState("");
+  const [colorSfondo, setColorSfondo] = useState("bg-gradient-to-b from-sky-300 to-green-100")
   
     return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout iconAvatar={avatar} utente={utente} />}>
+        <Route element={<Layout iconAvatar={avatar} utente={utente} sfondo={colorSfondo} />}>
           <Route path="/" element={<Home changeAvatar={setAvatar}/>} />
           <Route path="chisiamo" element={<Chisiamo />} />
           {/* The 'Usuario' component is used for both 'Chisiamo' and 'Usuario' routes */}
@@ -28,6 +30,7 @@ function App() {
           />} />
           <Route path="sezioni" element={<Sezioni />} />
           <Route path="domande" element={<Domanda />} />
+          <Route path="consumi" element={<ConsumiRifiuti />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
