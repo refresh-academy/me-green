@@ -14,7 +14,12 @@ const Domanda = ({sezioniDaFare}) => {
 
   const [domande, setDomande] = useState([])
   useEffect(() => {
-    fetch('http://localhost:3000/api/questionario/1/sezione/1/domande')
+    const searchParams = new URLSearchParams();
+    // searchParams.append("questionario", 1);
+    sezioniDaFare.forEach(s => searchParams.append("sezione", s));
+    const url = `http://localhost:3000/api/questionario/1/inizio?${searchParams.toString()}`
+    console.log(url);
+    fetch(url)
       .then(res => res.json())
       .then(data => setDomande(data))
       .catch(err => console.log("Errore: ", err))
