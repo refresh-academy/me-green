@@ -8,11 +8,15 @@ const ConsumiRifiuti = ({ changeTheme }) => {
   const [domandaCorrente, setDomandaCorrente] = useState(0); // Stato per sapere a quale domanda siamo (serve quando aggiungeremo più domande)
   //  Elenco delle domande: per ora solo la prima, tipo radio button
 
-  const domande = [
+  const domande = {
+    titolo: "Consumi e rifiuti",
+    immagini: ["persona_bidone.png","persona_altra.png"],
+    domande: [
     {
       tipo: "radio",
       testo:
         "Quanti vestiti nuovi acquisti al mese (per te o per la tua famiglia)?",
+      immagini: [],
       opzioni: [
         { testo: "Nessuno", punteggio: 5, commento: "Ottima scelta!" },
         {
@@ -37,7 +41,9 @@ const ConsumiRifiuti = ({ changeTheme }) => {
         },
       ],
     },
-  ];
+    // { altra domanda},
+  ]
+};
 
   const vaiAvanti = () => {
     if (domandaCorrente < domande.length - 1) {
@@ -56,21 +62,24 @@ const ConsumiRifiuti = ({ changeTheme }) => {
   return (
     <>
       {/* Sfondo verde solo per questa pagina */}
-      {/* <div className="fixed inset-0 -z-5 bg-gradient-to-b from-green-100 to-green-200" /> */}
+      {/* <div className="fixed inset-0 -z-5 bg-gradient-to-b from-green-100 to-green-300" /> */}
 
       {/* Contenuto centrato */}
-      <div className="min-h-screen flex-col flex items-center justify-center px-4">
-        <div className="max-w-xl w-full text-center px-6 py-10"></div>
-        <h1 className="text-3xl font-bold text-green-800 mb-6">
-          Consumi e Rifiuti
-        </h1>
-
-        <h2 className="text-xl font-semibold text-gray-700 mb-6">
-          {domande[domandaCorrente].testo}
+      <div className="min-h-screen flex flex-col items-center justify-start pt-4 px-4">
+        <div className="max-w-xl w-full text-center px-6 py-4"></div>
+      {document.megreen.Titolo(domande.titolo)}
+      <img
+        src={domande.immagini[0]}
+        alt="consumi"
+        className="h-32 md:h-80 mb-2 ml-4 saturate-50 brightness-150
+                    absolute bottom-0 left-40 z-50"
+      />
+   <h2 className="text-xl font-semibold text-gray-700 mb-6">
+          {domande.domande[domandaCorrente].testo}
         </h2>
 
         <div className="flex-col flex justify-start space-y-3 mb-6">
-          {domande[domandaCorrente].opzioni.map((opzione, index) => (
+          {domande.domande[domandaCorrente].opzioni.map((opzione, index) => (
             <label
               key={index}
               className="flex items-center justify-start gap-2 text-lg"
@@ -91,7 +100,7 @@ const ConsumiRifiuti = ({ changeTheme }) => {
         {rispostaSelezionata && (
           <p className="mt-4 text-green-700 font-semibold">
             {
-              domande[domandaCorrente].opzioni.find(
+              domande.domande[domandaCorrente].opzioni.find(
                 (opzione) => opzione.testo === rispostaSelezionata
               ).commento
             }

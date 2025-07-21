@@ -3,12 +3,12 @@ import { Link } from "react-router";
 const ButtonAltraDomanda = ({ target,  titolo, verso="avanti"}) => {
     const pulsante = {
         avanti: {
-            css: "flex-row-reverse hover:pl-5",
+            css: "flex-row-reverse",
             titolo: "»",
             ccss: "right-12"
         },
         indietro: {
-            css: "flex-row hover:pr-5",
+            css: "flex-row",
             titolo: "«",
             ccss: "left-12"
         }
@@ -24,7 +24,7 @@ const ButtonAltraDomanda = ({ target,  titolo, verso="avanti"}) => {
                             bg-green-200 flex items-center justify-center text-3xl
                                 duration-300 ease-in"
                 >{pulsante[verso].titolo}</div>
-                {<p className="text-xl w-0 not-group-hover:hidden group-hover:w-fit overflow-hidden">{titolo}</p>}
+        
             </Link>
         </div>
     );

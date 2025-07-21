@@ -14,13 +14,15 @@ function App() {
 
   const [avatar, setAvatar] = useState(0);
   const [utente, setUtente] = useState("");
+  const [TitoloSezione, setTitoloSezione] = useState("")
+document.megreen={Titolo: (t)=>setTitoloSezione(t)}
   
   const [gradientSfondo, setGradientSfondo] = useState("from-sky-300 to-green-100");
   
     return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout iconAvatar={avatar} utente={utente} sfondo={gradientSfondo} />}>
+        <Route element={<Layout iconAvatar={avatar} utente={utente} sfondo={gradientSfondo} TitoloSezione={TitoloSezione}/>}>
           <Route path="/" element={<Home changeAvatar={setAvatar}/>} />
           <Route path="chisiamo" element={<Chisiamo />} />
           {/* The 'Usuario' component is used for both 'Chisiamo' and 'Usuario' routes */}
