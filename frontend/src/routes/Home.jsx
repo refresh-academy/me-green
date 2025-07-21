@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import Usuario from "./Usuario.jsx";
 const Home = () => {
   return (
     <>
