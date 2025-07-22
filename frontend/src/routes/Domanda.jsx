@@ -6,10 +6,8 @@ import CardDomandaSlider from "../components/CardDomandaSlider";
 const Domanda = ({ sezioniDaFare }) => {
 
   const vaiAvanti = () => {
-    console.log("avanti!!!",domandaCorrente );
+    let d = domandaCorrente;
     if (domandaCorrente.domanda < domande[domandaCorrente.sezione].question.length-1) {
-      console.log("avanti!!!", );
-      let d = domandaCorrente;
       d.domanda+=1;
       setDomandaCorrente(d);
       setRispostaSelezionata("");
@@ -17,9 +15,8 @@ const Domanda = ({ sezioniDaFare }) => {
       return 
     }
     if (domandaCorrente.sezione < domande.length-1) {
-      let d = domandaCorrente;
-      d.sezione+=1;
-      d.domanda=0;
+      d.sezione += 1;
+      d.domanda = 0;
       setDomandaCorrente(d);
       setRispostaSelezionata("");
       setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
@@ -28,10 +25,24 @@ const Domanda = ({ sezioniDaFare }) => {
   };
 
   const vaiIndietro = () => {
-    if (domandaCorrente.sezione > 0) {
-      setDomandaCorrente(domandaCorrente - 1);
+    let d = domandaCorrente;
+    if (domandaCorrente.domanda > 0) {
+      d.domanda -= 1;
+      setDomandaCorrente(d);
       setRispostaSelezionata("");
-      setDomandaDaMostrare(data[domandaCorrente.sezione].question[domandaCorrente.domanda])
+      setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
+      return 
+    }
+    // Se siamo qui siamo alla prima domanda della sezione corrente.
+    // Dobbiamo andare all'ultima domanda della sezione precente
+    // se esiste una sezione precedente
+    if (domandaCorrente.sezione > 0) {
+      // andiamo all'ultima domanda della sezione precendente
+      d.sezione -= 1;
+      d.domanda = domande[d.sezione].question.length - 1
+      setDomandaCorrente(d);
+      setRispostaSelezionata("");
+      setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
     }
   };
 
