@@ -9,41 +9,78 @@ const ConsumiRifiuti = ({ changeTheme }) => {
   //  Elenco delle domande: per ora solo la prima, tipo radio button
 
   const domande = {
-    titolo: "Consumi e rifiuti",
-    immagini: ["persona_bidone.png","persona_altra.png"],
+    titolo: "Consumi e Rifiuti",
+    immagini: [
+      "persona_bidone.png",
+      "scambio_vestiti.png",
+      "persona_spesa.png",
+      "oggetti_reciclare.png"
+    ],
     domande: [
-    {
-      tipo: "radio",
-      testo:
-        "Quanti vestiti nuovi acquisti al mese (per te o per la tua famiglia)?",
-      immagini: [],
-      opzioni: [
-        { testo: "Nessuno", punteggio: 5, commento: "Ottima scelta!" },
+      {
+        tipo: "radio",
+        testo:
+          "Quanti vestiti nuovi acquisti al mese (per te o per la tua famiglia)?",
+        immagini: [],
+        opzioni: [
+          { testo: "Nessuno", punteggio: 5, commento: "Ottima scelta!" },
+          {
+            testo: "1-2 capi",
+            punteggio: 4,
+            commento: "Bravo! Aiuti a ridurre l’impatto ambientale.",
+          },
+          {
+            testo: "3-4 capi",
+            punteggio: 3,
+            commento: "Attenzione: cerca di ridurre un po’.",
+          },
+          {
+            testo: "5-6 capi",
+            punteggio: 2,
+            commento: "Consumi alti: valuta di acquistare meno.",
+          },
+          {
+            testo: "Più di 6 capi",
+            punteggio: 1,
+            commento: "La moda veloce inquina: cerca alternative.",
+          },
+        ],
+      },
+      // { altra domanda},
+
         {
-          testo: "1-2 capi",
-          punteggio: 4,
-          commento: "Bravo! Aiuti a ridurre l’impatto ambientale.",
-        },
-        {
-          testo: "3-4 capi",
-          punteggio: 3,
-          commento: "Attenzione: cerca di ridurre un po’.",
-        },
-        {
-          testo: "5-6 capi",
-          punteggio: 2,
-          commento: "Consumi alti: valuta di acquistare meno.",
-        },
-        {
-          testo: "Più di 6 capi",
-          punteggio: 1,
-          commento: "La moda veloce inquina: cerca alternative.",
-        },
-      ],
-    },
-    // { altra domanda},
-  ]
-};
+        tipo: "slider",
+        testo:
+          "Che tipo di vestiti acquisti più spesso?",
+
+        immagini: [],
+        opzioni: [
+          { testo: "Seconda mano o vintage", 
+            punteggio: 5, 
+            commento: "Ottimo! Riutilizzare è una forma di rispetto per il pianeta." },
+          {
+            testo: "Materiali sostenibili",
+            punteggio: 4,
+            commento: "Scelta consapevole! I materiali naturali hanno meno impatto."},
+          {
+            testo: "Di qualità che durano nel tempo",
+            punteggio: 3,
+            commento: "Acquistare meno e meglio è già un passo avanti.",
+          },
+          {
+            testo: "Vestiti economici (fast fashion)",
+            punteggio: 2,
+            commento: "Questa scelta ha un impatto elevato: valuta alternative più sostenibili.",
+          },
+          {
+            testo: "Fast fashion, cambio frequente",
+            punteggio: 1,
+            commento: "Il consumo eccessivo genera molto spreco e inquinamento.",
+          },
+        ],
+      },
+    ],
+  };
 
   const vaiAvanti = () => {
     if (domandaCorrente < domande.length - 1) {
@@ -67,14 +104,31 @@ const ConsumiRifiuti = ({ changeTheme }) => {
       {/* Contenuto centrato */}
       <div className="min-h-screen flex flex-col items-center justify-start pt-4 px-4">
         <div className="max-w-xl w-full text-center px-6 py-4"></div>
-      {document.megreen.Titolo(domande.titolo)}
-      <img
-        src={domande.immagini[0]}
-        alt="consumi"
-        className="h-32 md:h-80 mb-2 ml-4 saturate-50 brightness-150
-                    absolute bottom-0 left-40 z-50"
-      />
-   <h2 className="text-xl font-semibold text-gray-700 mb-6">
+        {document.megreen.Titolo(domande.titolo)}
+        <img
+          src={domande.immagini[0]}
+          alt="consumi"
+          className="h-32 md:h-46 mb-2 ml-4 brightness-100 absolute bottom-0 left-30 z-50"
+        />
+
+        <img
+          src={domande.immagini[1]}
+          alt="vestiti"
+          className="absolute bottom-1 left-2/3 transform -translate-x-1/2 -translate-y-20 md:h-40 z-40"
+        />
+
+        <img
+          src={domande.immagini[2]}
+          alt="spesa"
+          className="h-32 md:h-46 mb-4 mr-4 brightness-100 absolute bottom-0 right-40 z-40"
+        />
+
+        <img
+          src={domande.immagini[3]}
+          alt="spesa"
+          className="h-32 md:h-46 mb-4 mr-4 brightness-100 absolute bottom-0 left-80 z-40"
+        />
+        <h2 className="text-xl font-semibold text-gray-700 mb-6">
           {domande.domande[domandaCorrente].testo}
         </h2>
 
@@ -138,7 +192,11 @@ const ConsumiRifiuti = ({ changeTheme }) => {
           </button>
         </div> */}
       </div>
-      <ButtonAltraDomanda target="/consumi" verso="indietro" titolo="Sezione Consumi" />
+      <ButtonAltraDomanda
+        target="/consumi"
+        verso="indietro"
+        titolo="Sezione Consumi"
+      />
       <ButtonAltraDomanda target="/" verso="avanti" titolo="Sezione Consumi" />
     </>
   );

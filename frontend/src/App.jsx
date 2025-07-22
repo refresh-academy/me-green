@@ -8,6 +8,7 @@ import Layout from "./routes/Layout.jsx";
 import Usuario from "./routes/Usuario.jsx";
 import Chisiamo from "./routes/Chisiamo.jsx";
 import ConsumiRifiuti from "./routes/ConsumiRifiuti.jsx";
+import Casa from "./routes/Casa.jsx";
 import { useState } from "react";
 
 function App() {
@@ -34,6 +35,7 @@ document.megreen={Titolo: (t)=>setTitoloSezione(t)}
           <Route path="sezioni" element={<Sezioni />} />
           <Route path="domande" element={<Domanda />} />
           <Route path="consumi" element={<ConsumiRifiuti changeTheme={setGradientSfondo}/>} />
+          <Route path="casa" element={<Casa changeTheme={setGradientSfondo}/>} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

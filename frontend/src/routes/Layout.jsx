@@ -9,7 +9,7 @@ const Layout = ({ iconAvatar, utente, sfondo = "green", TitoloSezione }) => {
       <Link className="absolute left-12 top-10" to="/Chisiamo">
         Chi siamo?
       </Link>
-      <h2 className="relative pt-20 text-3xl font-bold text-green-800 mb-6">
+      <h2 className="absolute pt-20 text-3xl font-bold text-green-800 mb-6">
         {TitoloSezione}
       </h2>
       <AvatarDisplay

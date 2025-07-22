@@ -21,7 +21,7 @@ const ButtonAltraDomanda = ({ target,  titolo, verso="avanti"}) => {
         <div className={containerClass}>
             <Link className={buttonClass} to={target} alt={verso}>
                 <div className="size-12 hover:font-extrabold rounded-full ring-2 ring-white 
-                            bg-green-200 flex items-center justify-center text-3xl
+                            bg-transparent flex items-center justify-center text-3xl
                                 duration-300 ease-in"
                 >{pulsante[verso].titolo}</div>
         
