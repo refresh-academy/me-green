@@ -34,7 +34,17 @@ const dbAll = (query, params = []) => {
         });
     });
 };
-
+const dbOne = (query, params = []) => {
+    return new Promise((resolve, reject) => {
+        db.all(query, params, (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows[0]);
+            }
+        });
+    });
+};
 const dbRun = (query, params = []) => {
     return new Promise((resolve, reject) => {
         db.run(query, params, function (err) {
@@ -75,7 +85,7 @@ app.get("/api/questionario/:questionario_id/sezioni", async (req, res) => {
 //     }
 // });
 const domandePerSezione = async (sezione_id) => {
-    const SQL = `SELECT id_domanda, d.titolo, d.corpo, d.tipo
+    const SQL = `SELECT id_domanda, d.titolo, d.corpo, d.tipo, sezione_id
                  FROM domanda d
                  WHERE sezione_id = ?
                  ORDER BY d.ordine`;
@@ -84,12 +94,20 @@ const domandePerSezione = async (sezione_id) => {
 }
 
 app.get("/api/questionario/:questionario_id/inizio/", async (req, res) => {
-    const SQL = `SELECT id_domanda, d.corpo, d.tipo
-    FROM domanda d
-    WHERE sezione_id IN ?
-    ORDER BY d.ordine`;
-    const domande =await dbAll(SQL, [req.params.sezione_id] );
-
+    const sezioni =req.query.sezione;
+    console.log(req.query.sezione);
+    let domande =[];
+    for (s of sezioni){
+        const SQL = `SELECT id_sezione, s.titolo, count() AS numero_domande
+    FROM sezione s
+    JOIN domanda ON (id_sezione = sezione_id)
+    WHERE id_sezione= ?`;
+    const sezione = await dbOne(SQL, [s] );
+    console.log(sezione);
+    sezione.question= await domandePerSezione (s);
+    domande.push(sezione);
+    }
+    res.json(domande);
 });
 
 app.get("/api/questionario/:questionario_id/sezione/:sezione_id/domande", async (req, res) => {
