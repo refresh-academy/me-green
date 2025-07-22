@@ -18,8 +18,13 @@ function App() {
   const [TitoloSezione, setTitoloSezione] = useState("")
 document.megreen={Titolo: (t)=>setTitoloSezione(t)}
   
+  const [sezioniDaFare, setSezioniDaFare]= useState([]);
   const [gradientSfondo, setGradientSfondo] = useState("from-sky-300 to-green-100");
   
+  
+ // document.megreen={sezioni: ()=>console.log(sezioniDaFare)}
+
+
     return (
     <BrowserRouter>
       <Routes>
@@ -32,8 +37,8 @@ document.megreen={Titolo: (t)=>setTitoloSezione(t)}
             utente={utente} 
             changeUtente={setUtente}  
           />} />
-          <Route path="sezioni" element={<Sezioni />} />
-          <Route path="domande" element={<Domanda />} />
+          <Route path="sezioni" element={<Sezioni sezioniDaFare={setSezioniDaFare}/>} />
+          <Route path="domande" element={<Domanda sezioniDaFare={sezioniDaFare}/>} />
           <Route path="consumi" element={<ConsumiRifiuti changeTheme={setGradientSfondo}/>} />
           <Route path="casa" element={<Casa changeTheme={setGradientSfondo}/>} />
           <Route path="*" element={<NotFound />} />
