@@ -62,7 +62,6 @@ app.get("/api/questionario/:questionario_id/sezioni", async (req, res) => {
     }
 });
 
-<<<<<<< Updated upstream
 // app.get("/api/questionario/:questionario_id/sezione/:sezione_id/domande", async (req, res) => {
 //     const SQL = `SELECT id_domanda, d.corpo, d.tipo
 //     FROM domanda d
@@ -75,15 +74,6 @@ app.get("/api/questionario/:questionario_id/sezioni", async (req, res) => {
 //         res.json(domande);
 //     }
 // });
-
-
-app.get("/api/questionario/:questionario_id/inizio/", async (req, res) => {
-    const SQL = `SELECT id_domanda, d.corpo, d.tipo
-    FROM domanda d
-    WHERE sezione_id IN ?
-    ORDER BY d.ordine`;
-    const domande =await dbAll(SQL, [req.params.sezione_id] );
-=======
 const domandePerSezione = async (sezione_id) => {
     const SQL = `SELECT id_domanda, d.titolo, d.corpo, d.tipo
                  FROM domanda d
@@ -93,10 +83,18 @@ const domandePerSezione = async (sezione_id) => {
     return domande.map(d => {d.risposte=[{testo:"risposta1", punteggio:2, commento:"commento1"},{testo:"risposta2", punteggio:1, commento:"commento2"}]; return d;});
 }
 
+app.get("/api/questionario/:questionario_id/inizio/", async (req, res) => {
+    const SQL = `SELECT id_domanda, d.corpo, d.tipo
+    FROM domanda d
+    WHERE sezione_id IN ?
+    ORDER BY d.ordine`;
+    const domande =await dbAll(SQL, [req.params.sezione_id] );
+
+});
+
 app.get("/api/questionario/:questionario_id/sezione/:sezione_id/domande", async (req, res) => {
     
     const domande = await domandePerSezione(req.params.sezione_id);
->>>>>>> Stashed changes
     if (domande.length===0){
         return res.status(404).json({error: "questionario non trovato"});
     }else{
@@ -104,11 +102,6 @@ app.get("/api/questionario/:questionario_id/sezione/:sezione_id/domande", async 
     }
 });
 
-<<<<<<< Updated upstream
-
-
-
-=======
 app.get("/api/questionario/:questionario_id/inizio", (req, res) => {
     const questionario = req.params.questionario_id;
     const sezioni = req.query.sezione;
@@ -116,7 +109,6 @@ app.get("/api/questionario/:questionario_id/inizio", (req, res) => {
 
     res.json({questionario, sezioni});
 })
->>>>>>> Stashed changes
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
