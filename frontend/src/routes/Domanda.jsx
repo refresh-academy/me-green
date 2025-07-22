@@ -1,27 +1,41 @@
 import { Link } from "react-router";
 import { useState, useEffect } from 'react';
+import CardDomandaRadio from "../components/CardDomandaRadio";
+import CardDomandaSlider from "../components/CardDomandaSlider";
 
 const Domanda = ({ sezioniDaFare }) => {
 
-  console.log("Dom:", sezioniDaFare)
-
-  const CardDomandaSlider = ({ corpo, tipo }) => {
-    return (
-      <>
-        <h1>{corpo}</h1>
-        <p>{tipo}</p>
-      </>
-    )
+  const vaiAvanti = () => {
+    console.log("avanti!!!",domandaCorrente );
+    if (domandaCorrente.domanda < domande[domandaCorrente.sezione].question.length-1) {
+      console.log("avanti!!!", );
+      let d = domandaCorrente;
+      d.domanda+=1;
+      setDomandaCorrente(d);
+      setRispostaSelezionata("");
+      setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
+      return 
+    }
+    if (domandaCorrente.sezione < domande.length-1) {
+      let d = domandaCorrente;
+      d.sezione+=1;
+      d.domanda=0;
+      setDomandaCorrente(d);
+      setRispostaSelezionata("");
+      setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
+      return 
+    } 
   };
 
-   const CardDomandaRadio = ({ corpo, tipo }) => {
-    return (
-      <>
-        <h1>{corpo}</h1>
-        <p>{tipo}</p>
-      </>
-    )
+  const vaiIndietro = () => {
+    if (domandaCorrente.sezione > 0) {
+      setDomandaCorrente(domandaCorrente - 1);
+      setRispostaSelezionata("");
+      setDomandaDaMostrare(data[domandaCorrente.sezione].question[domandaCorrente.domanda])
+    }
   };
+
+   
 
   const [rispostaSelezionata, setRispostaSelezionata] = useState(""); // Stato per tenere traccia della risposta selezionata dall'utente
   const [domandaCorrente, setDomandaCorrente] = useState({ sezione: 0, domanda: 0 });
@@ -57,14 +71,19 @@ const Domanda = ({ sezioniDaFare }) => {
       return <CardDomandaSlider
           key={domandaDaMostrare.id_domanda}
           corpo={domandaDaMostrare.corpo}
-          tipo={domandaDaMostrare.tipo} />
+          tipo={domandaDaMostrare.tipo} 
+          avanti={vaiAvanti}
+          indietro={vaiIndietro}/>
+
   }
 
   return (
          <CardDomandaRadio
           key={domandaDaMostrare.id_domanda}
           corpo={domandaDaMostrare.corpo}
-          tipo={domandaDaMostrare.tipo} />
+          tipo={domandaDaMostrare.tipo}
+          avanti={vaiAvanti}
+          indietro={vaiIndietro} />
   )
 }
 

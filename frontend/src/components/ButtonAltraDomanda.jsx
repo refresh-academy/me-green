@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-const ButtonAltraDomanda = ({ target,  titolo, verso="avanti"}) => {
+const ButtonAltraDomanda = ({ target, titolo, verso="avanti"}) => {
     const pulsante = {
         avanti: {
             css: "flex-row-reverse",
@@ -14,18 +14,18 @@ const ButtonAltraDomanda = ({ target,  titolo, verso="avanti"}) => {
         }
     }
     const buttonClass = `group flex gap-4 items-center justify-center
-                       top-10 bg-white/25 bg-opacity-90 
+                       top-10 bg-white/25 bg-opacity-90 cursor-pointer
                        rounded-full ${pulsante[verso].css}`; 
     const containerClass = `absolute top-0 z-100 flex items-center h-full ${pulsante[verso].ccss}`;
     return (
         <div className={containerClass}>
-            <Link className={buttonClass} to={target} alt={verso}>
+            <button className={buttonClass} onClick={target} alt={verso}>
                 <div className="size-12 hover:font-extrabold rounded-full ring-2 ring-white 
                             bg-transparent flex items-center justify-center text-3xl
                                 duration-300 ease-in"
                 >{pulsante[verso].titolo}</div>
         
-            </Link>
+            </button>
         </div>
     );
 }
