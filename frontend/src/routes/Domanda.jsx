@@ -1,7 +1,11 @@
 import { Link } from "react-router";
+// import { createContext } from "react";
 import { useState, useEffect } from 'react';
 import CardDomandaRadio from "../components/CardDomandaRadio";
 import CardDomandaSlider from "../components/CardDomandaSlider";
+
+// const Punteggi =createContext("CIAO")
+
 
 const Domanda = ({ sezioniDaFare }) => {
 
@@ -45,14 +49,30 @@ const Domanda = ({ sezioniDaFare }) => {
       setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
     }
   };
-
+const lavagnaPunteggi = (domande) => {
+	if(!domande){
+    return;
+  }
+  let board = []
+	for (let s of domande) {
+		for (let d of s.question) {
+			board.push({
+				sezione: s.id_sezione,
+				id: d.id_domanda,
+				tipo: d.tipo,
+				risposta: d.rispostaScelta
+			})
+		}
+	}
+	return board;
+}
    
 
   const [rispostaSelezionata, setRispostaSelezionata] = useState(""); // Stato per tenere traccia della risposta selezionata dall'utente
   const [domandaCorrente, setDomandaCorrente] = useState({ sezione: 0, domanda: 0 });
   const [domande, setDomande] = useState([]);
   const [domandaDaMostrare, setDomandaDaMostrare] = useState(undefined);
-
+  const [punteggi, setPunteggi]= useState([]);
   const searchParams = new URLSearchParams();
   // searchParams.append("questionario", 1);
   sezioniDaFare.forEach(s => searchParams.append("sezione", s));
@@ -66,7 +86,8 @@ const Domanda = ({ sezioniDaFare }) => {
       .then(res => res.json())
       .then(data => {
         setDomande(data);
-        setDomandaDaMostrare(data[domandaCorrente.sezione].question[domandaCorrente.domanda])
+        setPunteggi(lavagnaPunteggi(data));
+        setDomandaDaMostrare(data[domandaCorrente.sezione].question[domandaCorrente.domanda]);
       })
       .catch(err => console.log("Errore: ", err))
   }, []);
@@ -77,7 +98,7 @@ const Domanda = ({ sezioniDaFare }) => {
       Nessuna domanda
     </div>
   }
-
+  const score = {punti: punteggi, update: setPunteggi};
   if (domandaDaMostrare.tipo=="slider"){
       return (
         <CardDomandaSlider
@@ -86,6 +107,7 @@ const Domanda = ({ sezioniDaFare }) => {
           domanda={domandaDaMostrare}
           avanti={vaiAvanti}
           indietro={vaiIndietro}
+          score={score}
         />
       )
   }
@@ -97,6 +119,7 @@ const Domanda = ({ sezioniDaFare }) => {
           domanda={domandaDaMostrare}
           avanti={vaiAvanti}
           indietro={vaiIndietro}
+          score={score}
         />
   )
 }
