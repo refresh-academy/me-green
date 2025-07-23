@@ -79,22 +79,25 @@ const Domanda = ({ sezioniDaFare }) => {
   }
 
   if (domandaDaMostrare.tipo=="slider"){
-      return <CardDomandaSlider
-          key={domandaDaMostrare.id_domanda}
-          corpo={domandaDaMostrare.corpo}
-          tipo={domandaDaMostrare.tipo} 
+      return (
+        <CardDomandaSlider
+          key={["q", domandaCorrente.sezione, domandaDaMostrare.id_domanda].join("-")}
+          sezione={domande[domandaCorrente.sezione]}
+          domanda={domandaDaMostrare}
           avanti={vaiAvanti}
-          indietro={vaiIndietro}/>
-
+          indietro={vaiIndietro}
+        />
+      )
   }
 
   return (
-         <CardDomandaRadio
-          key={domandaDaMostrare.id_domanda}
-          corpo={domandaDaMostrare.corpo}
-          tipo={domandaDaMostrare.tipo}
+        <CardDomandaRadio
+          key={["q", domandaCorrente.sezione, domandaDaMostrare.id_domanda].join("-")}
+          sezione={domande[domandaCorrente.sezione]}
+          domanda={domandaDaMostrare}
           avanti={vaiAvanti}
-          indietro={vaiIndietro} />
+          indietro={vaiIndietro}
+        />
   )
 }
 

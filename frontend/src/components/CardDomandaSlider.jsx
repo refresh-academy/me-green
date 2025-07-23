@@ -1,12 +1,14 @@
 
 import ButtonAltraDomanda from "./ButtonAltraDomanda";
 
-const CardDomandaSlider = ({ corpo, tipo, avanti, indietro}) => {
+const CardDomandaSlider = ({ sezione, domanda, avanti, indietro }) => {
     return (
       <>
-        <h1>{corpo}</h1>
-        <p>{tipo}</p>
-        <ButtonAltraDomanda verso="indietro"titolo="Sezione Consumi" target={indietro}/>
+        <h1>{domanda.corpo}</h1>
+        <p>{domanda.tipo}</p>
+
+
+      <ButtonAltraDomanda verso="indietro"titolo="Sezione Consumi" target={indietro}/>
       <ButtonAltraDomanda verso="avanti" titolo="Sezione Consumi" target={avanti}/>
       </>
     )
