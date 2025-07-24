@@ -72,33 +72,35 @@ const lavagnaPunteggi = (domande) => {
   const [domandaCorrente, setDomandaCorrente] = useState({ sezione: 0, domanda: 0 });
   const [domande, setDomande] = useState([]);
   const [domandaDaMostrare, setDomandaDaMostrare] = useState(undefined);
-  const [punteggi, setPunteggi]= useState([]);
+  const [punteggio, setPunteggio]= useState([]);
+
   const searchParams = new URLSearchParams();
   // searchParams.append("questionario", 1);
   sezioniDaFare.forEach(s => searchParams.append("sezione", s));
   const url = `http://localhost:3000/api/questionario/1/inizio?${searchParams.toString()}`;
-  console.log("url", url);
   useEffect(() => {
     console.log("useEffect Domanda");
-
-
     fetch(url)
       .then(res => res.json())
       .then(data => {
         setDomande(data);
-        setPunteggi(lavagnaPunteggi(data));
+        setPunteggio(lavagnaPunteggi(data));
         setDomandaDaMostrare(data[domandaCorrente.sezione].question[domandaCorrente.domanda]);
       })
       .catch(err => console.log("Errore: ", err))
   }, []);
   console.log("domande", domande);
 
+  console.log(">> DC >>", domandaCorrente);
   if (!domandaDaMostrare){
     return <div>
       Nessuna domanda
+      
+      { domande.length && domandaCorrente.sezione && domande[domandaCorrente.sezione].immagini.map((immagine) => <img src={immagine.URL} alt={immagine.descrizione} className={immagine.classi}/>)
+      }
     </div>
   }
-  const score = {punti: punteggi, update: setPunteggi};
+
   if (domandaDaMostrare.tipo=="slider"){
       return (
         <CardDomandaSlider
@@ -107,7 +109,8 @@ const lavagnaPunteggi = (domande) => {
           domanda={domandaDaMostrare}
           avanti={vaiAvanti}
           indietro={vaiIndietro}
-          score={score}
+          punteggio={punteggio}
+          setPunteggio={setPunteggio}
         />
       )
   }
@@ -119,7 +122,8 @@ const lavagnaPunteggi = (domande) => {
           domanda={domandaDaMostrare}
           avanti={vaiAvanti}
           indietro={vaiIndietro}
-          score={score}
+          punteggio={punteggio}
+          setPunteggio={setPunteggio}
         />
   )
 }
