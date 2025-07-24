@@ -135,7 +135,8 @@ const caricaSezione = async (sezione_id) => {
 }
 
 app.get("/api/questionario/:questionario_id/inizio/", async (req, res) => {
-    const sezioni = req.query.sezione;
+    const sezioni = [req.query.sezione].flat(); // risolve errore se l'endpoint è invocato senza parametri sezione
+    
     let domande = [];
     for (s of sezioni){
         const sezione = await caricaSezione(s);
