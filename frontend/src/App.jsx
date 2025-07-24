@@ -8,6 +8,7 @@ import Layout from "./routes/Layout.jsx";
 import Usuario from "./routes/Usuario.jsx";
 import Chisiamo from "./routes/Chisiamo.jsx";
 import ConsumiRifiuti from "./routes/ConsumiRifiuti.jsx";
+import Risultati from "./routes/Risultati.jsx";
 import Casa from "./routes/Casa.jsx";
 import { useState } from "react";
 
@@ -15,6 +16,9 @@ function App() {
 
   const [avatar, setAvatar] = useState(0);
   const [utente, setUtente] = useState("");
+  const [punteggio, setPunteggio]= useState([]);
+  const [domande, setDomande] = useState([]);
+
   const [TitoloSezione, setTitoloSezione] = useState("")
 document.megreen={Titolo: (t)=>setTitoloSezione(t)}
   
@@ -23,7 +27,6 @@ document.megreen={Titolo: (t)=>setTitoloSezione(t)}
   
   
  // document.megreen={sezioni: ()=>console.log(sezioniDaFare)}
-
 
     return (
     <BrowserRouter>
@@ -38,7 +41,20 @@ document.megreen={Titolo: (t)=>setTitoloSezione(t)}
             changeUtente={setUtente}  
           />} />
           <Route path="sezioni" element={<Sezioni sezioniDaFare={setSezioniDaFare}/>} />
-          <Route path="domande" element={<Domanda sezioniDaFare={sezioniDaFare}/>} />
+          <Route path="domande" element={<Domanda 
+            sezioniDaFare={sezioniDaFare}
+            punteggio={punteggio}
+            setPunteggio={setPunteggio}
+            domande={domande}
+            setDomande={setDomande}
+          />} />
+          <Route path="risultati" element={<Risultati 
+            sezioniDaFare={sezioniDaFare}
+            domande={domande}  
+            punteggio={punteggio}
+            avatar={avatar}
+            utente={utente} 
+          />} />
           <Route path="consumi" element={<ConsumiRifiuti changeTheme={setGradientSfondo}/>} />
           <Route path="casa" element={<Casa changeTheme={setGradientSfondo}/>} />
           <Route path="*" element={<NotFound />} />

@@ -7,7 +7,7 @@ import CardDomandaSlider from "../components/CardDomandaSlider";
 // const Punteggi =createContext("CIAO")
 
 
-const Domanda = ({ sezioniDaFare }) => {
+const Domanda = ({ sezioniDaFare , punteggio, setPunteggio, domande, setDomande}) => {
 
   const vaiAvanti = () => {
     let d = domandaCorrente;
@@ -15,7 +15,8 @@ const Domanda = ({ sezioniDaFare }) => {
       d.domanda+=1;
       setDomandaCorrente(d);
       setRispostaSelezionata("");
-      setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
+      setDomandaDaMostrare(domande[d.sezione].question[d.domanda]);
+      setCommentoVisibile("");
       return 
     }
     if (domandaCorrente.sezione < domande.length-1) {
@@ -24,6 +25,7 @@ const Domanda = ({ sezioniDaFare }) => {
       setDomandaCorrente(d);
       setRispostaSelezionata("");
       setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
+      setCommentoVisibile("");
       return 
     } 
   };
@@ -35,6 +37,7 @@ const Domanda = ({ sezioniDaFare }) => {
       setDomandaCorrente(d);
       setRispostaSelezionata("");
       setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
+      setCommentoVisibile("");
       return 
     }
     // Se siamo qui siamo alla prima domanda della sezione corrente.
@@ -47,6 +50,7 @@ const Domanda = ({ sezioniDaFare }) => {
       setDomandaCorrente(d);
       setRispostaSelezionata("");
       setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
+      setCommentoVisibile("");
     }
   };
 const lavagnaPunteggi = (domande) => {
@@ -70,9 +74,8 @@ const lavagnaPunteggi = (domande) => {
 
   const [rispostaSelezionata, setRispostaSelezionata] = useState(""); // Stato per tenere traccia della risposta selezionata dall'utente
   const [domandaCorrente, setDomandaCorrente] = useState({ sezione: 0, domanda: 0 });
-  const [domande, setDomande] = useState([]);
   const [domandaDaMostrare, setDomandaDaMostrare] = useState(undefined);
-  const [punteggio, setPunteggio]= useState([]);
+  const [commentoVisibile, setCommentoVisibile] = useState("");
 
   const searchParams = new URLSearchParams();
   // searchParams.append("questionario", 1);
@@ -89,15 +92,11 @@ const lavagnaPunteggi = (domande) => {
       })
       .catch(err => console.log("Errore: ", err))
   }, []);
-  console.log("domande", domande);
 
-  console.log(">> DC >>", domandaCorrente);
   if (!domandaDaMostrare){
     return <div>
-      Nessuna domanda
-      
-      { domande.length && domandaCorrente.sezione && domande[domandaCorrente.sezione].immagini.map((immagine) => <img src={immagine.URL} alt={immagine.descrizione} className={immagine.classi}/>)
-      }
+      <h1 className="text-xl text-center w-full text-amber-800">Loading...</h1>
+      { domande.length && domandaCorrente.sezione && domande[domandaCorrente.sezione].immagini.map((immagine) => <img src={immagine.URL} alt={immagine.descrizione} className={immagine.classi}/>) }
     </div>
   }
 
@@ -124,8 +123,10 @@ const lavagnaPunteggi = (domande) => {
           indietro={vaiIndietro}
           punteggio={punteggio}
           setPunteggio={setPunteggio}
+          mostraCommento={setCommentoVisibile}
+          commento={commentoVisibile}
         />
   )
 }
 
-export default Domanda
+export default Domanda;

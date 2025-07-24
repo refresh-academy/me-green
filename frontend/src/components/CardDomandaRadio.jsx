@@ -1,9 +1,10 @@
 import ButtonAltraDomanda from "./ButtonAltraDomanda";
 
-const RisposteGroup = ({risposte, id_domanda, punteggio, setPunteggio}) => {
+const RisposteGroup = ({risposte, id_domanda, punteggio, setPunteggio, mostraCommento}) => {
   
   return (
-    <div className="flex-col flex justify-start space-y-3 mb-6">
+    <div className="flex justify-center w-3/4">
+      <div className="flex-col flex justify-start space-y-3 mb-6 w-fit">
           {risposte.map((risposta, indice) =>
               <RispostaRadio 
                 key={`rr-${id_domanda}-${indice}`} 
@@ -12,20 +13,22 @@ const RisposteGroup = ({risposte, id_domanda, punteggio, setPunteggio}) => {
                 id_domanda={id_domanda}
                 punteggio={punteggio}
                 setPunteggio={setPunteggio}
+                commenta={() => {console.log(risposta.commento); mostraCommento(risposta.commento)}}
               />
             )}
+      </div>
     </div>
   );
 }
 
-const RispostaRadio = ({valore, risposta, id_domanda, punteggio, setPunteggio}) => {
+const RispostaRadio = ({valore, risposta, id_domanda, punteggio, setPunteggio, commenta}) => {
     const onRispostaChanged = (e)=> {
     const nuovoPunteggio = punteggio.map(domanda =>
       domanda.id == id_domanda
         ? { ...domanda, risposta: e.target.value }
         : domanda
     );
-    console.log("punteggi", nuovoPunteggio);
+    commenta();
     setPunteggio(nuovoPunteggio)
   }
   
@@ -46,6 +49,14 @@ const RispostaRadio = ({valore, risposta, id_domanda, punteggio, setPunteggio}) 
   );
 }
 
+const Commento = ({ testo }) => {
+  return (
+      <div className="flex-col flex justify-start space-y-3 mb-6 rounded-lg min-h-4">
+        <p className="mt-4 text-yellow-700 text-md font-semibold min-h-4">{testo}</p>
+      </div>
+  );
+}
+
 const Illustrazione = ({ immagine }) => {
   //const classi = immagine.classi + " pointer-events-none"
   return (
@@ -53,7 +64,7 @@ const Illustrazione = ({ immagine }) => {
   );
 };
 
-const CardDomandaRadio = ({ sezione, domanda, avanti, indietro, punteggio, setPunteggio}) => {
+const CardDomandaRadio = ({ sezione, domanda, avanti, indietro, punteggio, setPunteggio, mostraCommento, commento}) => {
     return (
       <>
         <h2 className="text-xl font-semibold text-gray-700 mb-6">{domanda.corpo}</h2>
@@ -65,7 +76,9 @@ const CardDomandaRadio = ({ sezione, domanda, avanti, indietro, punteggio, setPu
         id_domanda={domanda.id_domanda} 
         punteggio={punteggio} 
         setPunteggio={setPunteggio}
+        mostraCommento={mostraCommento}
       />
+      <Commento testo={commento} />
 
       <ButtonAltraDomanda verso="indietro"titolo="Sezione Consumi" target={indietro}/>
       <ButtonAltraDomanda verso="avanti" titolo="Sezione Consumi" target={avanti}/>
