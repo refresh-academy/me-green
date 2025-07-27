@@ -1,4 +1,3 @@
-import ButtonAltraDomanda from "./ButtonAltraDomanda";
 
 const RisposteGroup = ({risposte, id_domanda, punteggio, setPunteggio, mostraCommento}) => {
   
@@ -64,7 +63,7 @@ const Illustrazione = ({ immagine }) => {
   );
 };
 
-const CardDomandaRadio = ({ sezione, domanda, avanti, indietro, punteggio, setPunteggio, mostraCommento, commento}) => {
+const CardDomandaRadio = ({ sezione, domanda, punteggio, setPunteggio, mostraCommento, commento}) => {
     return (
       <>
         <h2 className="text-xl font-semibold text-gray-700 mb-6">{domanda.corpo}</h2>
@@ -79,9 +78,6 @@ const CardDomandaRadio = ({ sezione, domanda, avanti, indietro, punteggio, setPu
         mostraCommento={mostraCommento}
       />
       <Commento testo={commento} />
-
-      <ButtonAltraDomanda verso="indietro"titolo="Sezione Consumi" target={indietro}/>
-      <ButtonAltraDomanda verso="avanti" titolo="Sezione Consumi" target={avanti}/>
       </>
     )
   };

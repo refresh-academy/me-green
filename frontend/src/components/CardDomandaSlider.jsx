@@ -1,6 +1,4 @@
 
-import ButtonAltraDomanda from "./ButtonAltraDomanda";
-
 const RisposteGroup = ({risposte, id_domanda, numeroRisposte, rispostaSelezionata, punteggio, setPunteggio}) => {
   const onSliderMoved = (e)=> {
     const nuovoPunteggio = punteggio.map(domanda =>
@@ -52,7 +50,7 @@ const Illustrazione = ({ immagine }) => {
   );
 };
 
-const CardDomandaSlider = ({ sezione, domanda, avanti, indietro, punteggio, setPunteggio}) => {
+const CardDomandaSlider = ({ sezione, domanda, punteggio, setPunteggio}) => {
     const rispostaScelta = punteggio.filter(s => domanda.id_domanda == s.id)[0].risposta
 
     return (
@@ -68,9 +66,7 @@ const CardDomandaSlider = ({ sezione, domanda, avanti, indietro, punteggio, setP
         punteggio={punteggio}
         setPunteggio={setPunteggio}
         />
-
-      <ButtonAltraDomanda verso="indietro"titolo="Sezione Consumi" target={indietro}/>
-      <ButtonAltraDomanda verso="avanti" titolo="Sezione Consumi" target={avanti}/>
+      {}
       </>
     )
   };

@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import { useState, useEffect } from 'react';
 import CardDomandaRadio from "../components/CardDomandaRadio";
 import CardDomandaSlider from "../components/CardDomandaSlider";
+import ButtonAltraDomanda from "../components/ButtonAltraDomanda";
+
 
 // const Punteggi =createContext("CIAO")
 
@@ -17,7 +19,7 @@ const Domanda = ({ sezioniDaFare , punteggio, setPunteggio, domande, setDomande}
       setRispostaSelezionata("");
       setDomandaDaMostrare(domande[d.sezione].question[d.domanda]);
       setCommentoVisibile("");
-      return 
+      return;
     }
     if (domandaCorrente.sezione < domande.length-1) {
       d.sezione += 1;
@@ -26,8 +28,8 @@ const Domanda = ({ sezioniDaFare , punteggio, setPunteggio, domande, setDomande}
       setRispostaSelezionata("");
       setDomandaDaMostrare(domande[d.sezione].question[d.domanda])
       setCommentoVisibile("");
-      return 
-    } 
+      return;
+    }
   };
 
   const vaiIndietro = () => {
@@ -53,24 +55,46 @@ const Domanda = ({ sezioniDaFare , punteggio, setPunteggio, domande, setDomande}
       setCommentoVisibile("");
     }
   };
-const lavagnaPunteggi = (domande) => {
-	if(!domande){
-    return;
+
+  const lavagnaPunteggi = (domande) => {
+    if(!domande){
+      return;
+    }
+    let board = []
+    for (let s of domande) {
+      for (let d of s.question) {
+        board.push({
+          sezione: s.id_sezione,
+          id: d.id_domanda,
+          tipo: d.tipo,
+          risposta: d.rispostaScelta
+        })
+      }
+    }
+    return board;
   }
-  let board = []
-	for (let s of domande) {
-		for (let d of s.question) {
-			board.push({
-				sezione: s.id_sezione,
-				id: d.id_domanda,
-				tipo: d.tipo,
-				risposta: d.rispostaScelta
-			})
-		}
-	}
-	return board;
-}
    
+  const dettagliDomandaPrecedente = (position) => {
+    if (position.domanda > 0) {
+      return (domande[position.sezione].question[position.domanda - 1])
+    }
+    if (position.sezione > 0) {
+      return (domande[position.sezione - 1].question.at(-1))
+    }
+    // non esiste la domanda precedente, siamo alla prima domanda del questionario
+    return null;
+  }
+
+  const dettagliDomandaSuccessiva = (position) => {
+    if (position.domanda < domande[position.sezione].question.length - 1) {
+      return (domande[d.sezione].question[d.domanda + 1])
+    }
+    if (position.sezione < domande.length - 1) {
+      return (domande[d.sezione + 1].question[0])
+    }
+    // non esiste la domanda successiva, siamo all'ultima domanda del questionario
+    return null;
+  }
 
   const [rispostaSelezionata, setRispostaSelezionata] = useState(""); // Stato per tenere traccia della risposta selezionata dall'utente
   const [domandaCorrente, setDomandaCorrente] = useState({ sezione: 0, domanda: 0 });
@@ -100,32 +124,49 @@ const lavagnaPunteggi = (domande) => {
     </div>
   }
 
+  const titoloDomandaPrecedente = `Sezione {} Domanda {}`;
+  const titoloDomandaSuccessiva = `Sezione {} Domanda {}`;
+
   if (domandaDaMostrare.tipo=="slider"){
       return (
+        <>
         <CardDomandaSlider
           key={["q", domandaCorrente.sezione, domandaDaMostrare.id_domanda].join("-")}
           sezione={domande[domandaCorrente.sezione]}
           domanda={domandaDaMostrare}
-          avanti={vaiAvanti}
-          indietro={vaiIndietro}
           punteggio={punteggio}
           setPunteggio={setPunteggio}
         />
+        {
+          domandaCorrente.sezione > 0 || domandaCorrente.domanda > 0
+          ? <ButtonAltraDomanda verso="indietro" titolo="Sezione Consumi" target={vaiIndietro}/>
+          : <ButtonAltraDomanda verso="x" target={()=>{}}/>
+        }
+        
+        <ButtonAltraDomanda verso="avanti" titolo="Sezione Consumi" target={vaiAvanti}/>
+      </>
       )
   }
 
   return (
+    <>
         <CardDomandaRadio
           key={["q", domandaCorrente.sezione, domandaDaMostrare.id_domanda].join("-")}
           sezione={domande[domandaCorrente.sezione]}
           domanda={domandaDaMostrare}
-          avanti={vaiAvanti}
-          indietro={vaiIndietro}
           punteggio={punteggio}
           setPunteggio={setPunteggio}
           mostraCommento={setCommentoVisibile}
           commento={commentoVisibile}
         />
+        {
+          domandaCorrente.sezione > 0 || domandaCorrente.domanda > 0
+          ? <ButtonAltraDomanda verso="indietro" titolo="Sezione Consumi" target={vaiIndietro}/>
+          : <ButtonAltraDomanda verso="x" target={()=>{}}/>
+        }
+        
+      <ButtonAltraDomanda verso="avanti" titolo="Sezione Consumi" target={vaiAvanti}/>
+      </>
   )
 }
 

@@ -11,6 +11,11 @@ const ButtonAltraDomanda = ({ target, titolo, verso="avanti"}) => {
             css: "flex-row",
             titolo: "«",
             ccss: "left-12"
+        },
+        x: {
+            css: "flex-row",
+            titolo: "✕",
+            ccss: "left-12 text-gray-300"
         }
     }
     const buttonClass = `group flex gap-4 items-center justify-center
