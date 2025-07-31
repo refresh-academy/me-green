@@ -34,7 +34,17 @@ const dbAll = (query, params = []) => {
         });
     });
 };
-
+const dbOne = (query, params = []) => {
+    return new Promise((resolve, reject) => {
+        db.all(query, params, (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows[0]);
+            }
+        });
+    });
+};
 const dbRun = (query, params = []) => {
     return new Promise((resolve, reject) => {
         db.run(query, params, function (err) {
@@ -62,18 +72,97 @@ app.get("/api/questionario/:questionario_id/sezioni", async (req, res) => {
     }
 });
 
+// app.get("/api/questionario/:questionario_id/sezione/:sezione_id/domande", async (req, res) => {
+//     const SQL = `SELECT id_domanda, d.corpo, d.tipo
+//     FROM domanda d
+//     WHERE sezione_id = ?
+//     ORDER BY d.ordine`;
+//     const domande =await dbAll(SQL, [req.params.sezione_id] );
+//     if (domande.length===0){
+//         return res.status(404).json({error: "questionario non trovato"});
+//     }else{
+//         res.json(domande);
+//     }
+// });
+
+const immaginiPerSezione = async (sezione_id) => {
+    const SQL = `SELECT url, descrizione, classi
+                 FROM immagine_sezione
+                 WHERE sezione_id = ?`;
+    const immagini = await dbAll(SQL, [sezione_id] );
+    return immagini;
+}
+
+const scegliRispostaPredefinitaAcaso = (risposte) => {
+    return Math.floor(Math.random() * risposte.length)
+}
+
+const domandePerSezione = async (sezione_id) => {
+    const SQL = `SELECT id_domanda, d.titolo, d.corpo, d.tipo, sezione_id
+                 FROM domanda d
+                 WHERE sezione_id = ?
+                 ORDER BY d.ordine`;
+    const domande = await dbAll(SQL, [sezione_id] );
+    for (d of domande) {
+        d.rispostaScelta = null
+        d.risposte = await rispostePerDomanda(d.id_domanda);
+        // se la domanda è di tipo slider, scegliamo una risposta
+        // a caso per iniziare (non si può NON scegliere una risposta)
+        // con il controllo range
+        if (d.tipo == "slider") {
+            d.rispostaScelta = scegliRispostaPredefinitaAcaso(d.risposte);
+        }
+    }
+    return domande;
+}
+
+const rispostePerDomanda = async (domanda_id) => {
+    const SQL = `SELECT id_risposta, corpo, valore_punti, valore_CO2, commento
+                 FROM risposta
+                 WHERE domanda_id = ?
+                 ORDER BY ordine`;
+    const risposte = await dbAll(SQL, [domanda_id] );
+    return risposte;
+}
+
+const caricaSezione = async (sezione_id) => {
+    const SQL = `SELECT id_sezione, s.titolo, count() AS numero_domande
+        FROM sezione s
+        JOIN domanda ON (id_sezione = sezione_id)
+        WHERE id_sezione = ?`;
+    const sezione = await dbOne(SQL, [s]);
+    return sezione;
+}
+
+app.get("/api/questionario/:questionario_id/inizio/", async (req, res) => {
+    const sezioni = [req.query.sezione].flat(); // risolve errore se l'endpoint è invocato senza parametri sezione
+    
+    let domande = [];
+    for (s of sezioni){
+        const sezione = await caricaSezione(s);
+        sezione.immagini = await immaginiPerSezione(s);
+        sezione.question = await domandePerSezione(s);
+        domande.push(sezione);
+    }
+    res.json(domande);
+});
+
 app.get("/api/questionario/:questionario_id/sezione/:sezione_id/domande", async (req, res) => {
-    const SQL = `SELECT id_domanda, d.corpo, d.tipo
-    FROM domanda d
-    WHERE sezione_id = ?
-    ORDER BY d.ordine`;
-    const domande =await dbAll(SQL, [req.params.sezione_id] );
+    const domande = await domandePerSezione(req.params.sezione_id);
     if (domande.length===0){
         return res.status(404).json({error: "questionario non trovato"});
     }else{
         res.json(domande);
     }
 });
+
+app.get("/api/questionario/:questionario_id/inizio", (req, res) => {
+    const questionario = req.params.questionario_id;
+    const sezioni = req.query.sezione;
+    console.log(questionario, sezioni);
+
+    res.json({questionario, sezioni});
+})
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
@@ -88,3 +177,4 @@ process.on('SIGINT', () => {
         process.exit(0);
     });
 });
+

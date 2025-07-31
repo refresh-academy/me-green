@@ -1,31 +1,36 @@
 import { Link } from "react-router";
 
-const ButtonAltraDomanda = ({ target,  titolo, verso="avanti"}) => {
+const ButtonAltraDomanda = ({ target, titolo, verso="avanti"}) => {
     const pulsante = {
         avanti: {
-            css: "flex-row-reverse hover:pl-5",
+            css: "flex-row-reverse",
             titolo: "»",
             ccss: "right-12"
         },
         indietro: {
-            css: "flex-row hover:pr-5",
+            css: "flex-row",
             titolo: "«",
             ccss: "left-12"
+        },
+        x: {
+            css: "flex-row",
+            titolo: "✕",
+            ccss: "left-12 text-gray-300"
         }
     }
     const buttonClass = `group flex gap-4 items-center justify-center
-                       top-10 bg-white/25 bg-opacity-90 
+                       top-10 bg-white/25 bg-opacity-90 cursor-pointer
                        rounded-full ${pulsante[verso].css}`; 
     const containerClass = `absolute top-0 z-100 flex items-center h-full ${pulsante[verso].ccss}`;
     return (
         <div className={containerClass}>
-            <Link className={buttonClass} to={target} alt={verso}>
+            <button className={buttonClass} onClick={target} alt={verso}>
                 <div className="size-12 hover:font-extrabold rounded-full ring-2 ring-white 
-                            bg-green-200 flex items-center justify-center text-3xl
+                            bg-transparent flex items-center justify-center text-3xl
                                 duration-300 ease-in"
                 >{pulsante[verso].titolo}</div>
-                {<p className="text-xl w-0 not-group-hover:hidden group-hover:w-fit overflow-hidden">{titolo}</p>}
-            </Link>
+        
+            </button>
         </div>
     );
 }
